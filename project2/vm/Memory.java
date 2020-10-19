@@ -1,7 +1,6 @@
 import java.util.TimerTask;
 import Storage.PhyMemory;
 public abstract class Memory {
-    protected long frequency = 30; //10sec
     protected PhyMemory ram; //inherited and accessible to subclass
     /*
      * The constructor creates memory with specified size mem_size and a prepared disk
