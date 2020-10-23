@@ -172,7 +172,7 @@ import static java.lang.System.*;
         if(this.delay == false) return;
         int sleepTime = 10 + Math.abs(targetBlock - currentBlock) / 5;
         try {
-            Thread.sleep(sleepTime);
+            Thread.sleep(sleepTime*1000);
         } catch (Exception e) {
             e.printStackTrace();
         }
