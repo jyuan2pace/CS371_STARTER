@@ -87,7 +87,6 @@ public class VirtMemoryTest {
         //if you cleared up dirty bits, then shutdown
         //should add no more writes.
         assertEquals(32, m.getPhyMemory().writeCountDisk());
-        //32 blocks loaded in because of poor locality
         assertEquals(32, m.getPhyMemory().readCountDisk());
     }
 
@@ -130,6 +129,8 @@ public class VirtMemoryTest {
         assertEquals(2048, m.getPhyMemory().writeCountDisk());
         assertEquals(1792, m.getPhyMemory().readCountDisk());
     }
+
+    //stress test and it is going to take several mins
     @Test
     public void test7_End2EndMix() {
        Memory m = new VirtMemory();
