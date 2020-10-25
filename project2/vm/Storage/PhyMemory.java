@@ -4,16 +4,16 @@ import java.util.*;
 
 public class PhyMemory {
     private Disk disk;
-    private int addrSpaceSize = 16*1024; //16K default
+    private int phyMemSize = 16*1024; //16K default
     private static final int FRAME_SIZE = 64; //must be the same as page size
     private byte[] data;
     private boolean delay =  false;
     //Constructor of physical memory
-    public PhyMemory(int addrSpaceSize, Disk disk) {
-        this.addrSpaceSize = addrSpaceSize;
-        assert(this.addrSpaceSize % FRAME_SIZE == 0);
+    public PhyMemory(int size, Disk disk) {
+        this.phyMemSize = size;
+        assert(this.phyMemSize % FRAME_SIZE == 0);
         this.disk = disk;
-        data = new byte[this.addrSpaceSize];
+        data = new byte[this.phyMemSize];
         Arrays.fill(data, (byte) 0);
     }
 
@@ -34,7 +34,7 @@ public class PhyMemory {
     //memory. This delay is order of magnitude smaller than the delay in disk.
     private void delay() {
         if(this.delay == false) return;
-        int sleepTime = 1;
+        int sleepTime = 1000;
         try {
             Thread.sleep(sleepTime);
         } catch (Exception e) {
@@ -67,21 +67,21 @@ public class PhyMemory {
         disk.read(blockNum, buffer);
         System.arraycopy(buffer,0, data, startAddr, FRAME_SIZE);
     }
-    //returns how many physical frames are there.
+    //how many physical frames are there.
     public int num_frames() {
-        return this.addrSpaceSize /FRAME_SIZE;
+        return this.phyMemSize/FRAME_SIZE;
     }
 
-    //only used in the shutdown of memory to notify disk
+    //only used in the shutdown of physical memory to notify disk
     public void flush() {
         disk.flush();
     }
 
-    //collect stats of read/count on disk
+    //collect stats of write count on disk
     public int writeCountDisk() {
         return disk.writeCount;
     }
-    //collect stats of read/count on disk
+    //collect stats of read count on disk
     public int readCountDisk() {
         return disk.readCount;
     }
