@@ -1,0 +1,6 @@
+bar:1
+boss:1
+foo:3
+fox:1
+road:2
+woof:1
